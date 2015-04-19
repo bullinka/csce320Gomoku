@@ -20,8 +20,6 @@ import javax.swing.JFrame;
  * 
  * Revisions:
  * 3/14/2015 - Class created by Karen Bullinger.
- * 4/5/2015 - Added createFrame() method.
- * 4/11/2015 - Updated newServerConnection to return boolean
  */
 public class ClientModel {
     private LeaderboardController leaderboardController;
@@ -41,25 +39,20 @@ public class ClientModel {
       frame  = new frame();
   } 
    /**
-    * Creates new socket connection between client and server. Returns true if
-    * socket is created.
+    * Creates new socket connection between client and server.
     * @param cont
     * @param host
     * @param port 
     */
-  public boolean newServerConnection(LoginController cont, String host, int port) {
+  public void newServerConnection(LoginController cont, String host, int port) {
         this.loginController = cont;
         try {
             socket = new Socket(host, port);
-            
         } catch (UnknownHostException ex) {
-            return false;
+            Logger.getLogger(ClientModel.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(ClientModel.class.getName()).log(Level.SEVERE, null, ex);
-          return false;
-
         }
-        return true;
        
     }
   /**
