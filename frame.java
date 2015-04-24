@@ -10,16 +10,19 @@ import java.awt.CardLayout;
  *
  * @author Karen
  */
-public class frame extends javax.swing.JFrame {
-
+public class Frame extends javax.swing.JFrame {
+    
     /**
      * Creates new form frame
      */
-    public frame() {
+    public Frame(LoginView login, LobbyView lobby) {
+        loginView1 = login;
+        lobbyView1 = lobby;
         initComponents();
         
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -31,15 +34,18 @@ public class frame extends javax.swing.JFrame {
 
         mainPane = new javax.swing.JPanel();
         loginPane = new javax.swing.JPanel();
-        loginView1 = new LoginView();
+       // loginView1 = new LoginView();
         lobbyPane = new javax.swing.JPanel();
-        lobbyView1 = new LobbyView();
+       // lobbyView1 = new LobbyView();
         jPanel4 = new javax.swing.JPanel();
         PanThree = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMinimumSize(new java.awt.Dimension(644, 420));
 
         mainPane.setLayout(new java.awt.CardLayout());
+
+        loginPane.setMinimumSize(new java.awt.Dimension(600, 400));
 
         javax.swing.GroupLayout loginPaneLayout = new javax.swing.GroupLayout(loginPane);
         loginPane.setLayout(loginPaneLayout);
@@ -48,38 +54,42 @@ public class frame extends javax.swing.JFrame {
             .addGroup(loginPaneLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addComponent(loginView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
         loginPaneLayout.setVerticalGroup(
             loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPaneLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(loginView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(66, Short.MAX_VALUE))
         );
 
         mainPane.add(loginPane, "loginPane");
+
+        lobbyPane.setMinimumSize(new java.awt.Dimension(600, 400));
 
         javax.swing.GroupLayout lobbyPaneLayout = new javax.swing.GroupLayout(lobbyPane);
         lobbyPane.setLayout(lobbyPaneLayout);
         lobbyPaneLayout.setHorizontalGroup(
             lobbyPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lobbyPaneLayout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(105, 105, 105)
                 .addComponent(lobbyView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(111, Short.MAX_VALUE))
         );
         lobbyPaneLayout.setVerticalGroup(
             lobbyPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(lobbyPaneLayout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lobbyPaneLayout.createSequentialGroup()
+                .addContainerGap(74, Short.MAX_VALUE)
                 .addComponent(lobbyView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         mainPane.add(lobbyPane, "lobby");
         lobbyPane.getAccessibleContext().setAccessibleName("lobby");
         lobbyPane.getAccessibleContext().setAccessibleDescription("");
+
+        jPanel4.setMinimumSize(new java.awt.Dimension(600, 400));
 
         PanThree.setText("PanThree");
 
@@ -90,14 +100,14 @@ public class frame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(27, 27, 27)
                 .addComponent(PanThree)
-                .addContainerGap(485, Short.MAX_VALUE))
+                .addContainerGap(551, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(PanThree)
-                .addContainerGap(332, Short.MAX_VALUE))
+                .addContainerGap(375, Short.MAX_VALUE))
         );
 
         mainPane.add(jPanel4, "card3");
@@ -115,7 +125,7 @@ public class frame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         pack();
@@ -140,4 +150,17 @@ public class frame extends javax.swing.JFrame {
         card.show(mainPane, l);
         
     }
+   
+   public void addPanels(LoginView lv, LobbyView lov) //, GameView gv, LeaderboardView lbv)
+   {
+       mainPane.add(lv, "card0");
+       mainPane.add(lov, "card1");
+       //mainPane.add(gv, "card2");
+       //mainPane.add(lbv, "card3");
+   }
+
+    void updateOnlinePlayers(String[] online) {
+        lobbyView1.updateOnlinePlayerList(online);
+    }
+ 
 }

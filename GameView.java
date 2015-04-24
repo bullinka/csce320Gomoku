@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -26,8 +27,8 @@ import javax.swing.JFrame;
  *
  * @author PLUCSCE
  */
-public class GameView {  
-    JFrame frame=new JFrame(); //creates frame
+public class GameView extends JPanel{  
+    JPanel frame = new JPanel(); //creates frame
     JButton[][] grid; //names the grid of buttons
     
     ActionListener listener = new ActionListener() {
@@ -49,12 +50,13 @@ public class GameView {
                         frame.add(grid[x][y]); //adds button to grid
                 }
         }
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack(); //sets appropriate size for frame
+        //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //frame.pack(); //sets appropriate size for frame
         frame.setVisible(true); //makes frame visible
     }
+    /*
     public static void main(String[] args) {
         new GameView(30,30);//makes new ButtonGrid with 2 parameters
-    }
+    }*/
 }
 
