@@ -37,9 +37,14 @@ public class Main {
              lobbyController.setModel(model);
              lobbyView.setController(lobbyController);
              lobbyController.setLobbyView(lobbyView);
+             
+             GameController gameController = new GameController();
+             gameController.setModel(model);
+             
 
              model.setLoginController(loginController);
              model.setLobbyController(lobbyController);
+             model.setGameController(gameController);
 
              loginController.initLoginView();
               

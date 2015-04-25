@@ -39,10 +39,11 @@ public class ClientModel implements Runnable{
     private InputStream inStream;
     private DataInputStream dataIn;
     private DataOutputStream dataOut;
-    public final int gameHeight = 30, gameWidth = 30;
+    public final int gameHeight = 30;
+    public final int gameWidth = 30;
     private Thread worker;
    
-    private int port = 54321;
+    private int port = 27200;
     /**
      * Associates ClientModel and LoginController.  Opens new socket to
      * specified host and port.
@@ -90,6 +91,10 @@ public class ClientModel implements Runnable{
       this.loginController =  cont;
  
   }
+  
+   public void setGameController( GameController cont ){
+       this.gameController = cont;
+    }
  
   public void loginLobbyTrans(){
 
@@ -119,8 +124,8 @@ public class ClientModel implements Runnable{
     public void run() {
          try {
              System.out.println("Thread started");
-            ss = new ServerSocket(27200);
-            challengeeSocket = ss.accept();
+            ss = new ServerSocket(port);
+            challengeeSocket = ss.accept(); //
             inStream = challengeeSocket.getInputStream();
             dataIn = new DataInputStream(inStream);
             outStream = challengeeSocket.getOutputStream();

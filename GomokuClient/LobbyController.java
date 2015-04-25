@@ -30,7 +30,6 @@ public class LobbyController implements Runnable {
     final private String STATS = "stats";
     final private String ACCEPT = "accept";
     final private String REJECT = "reject";
-    
 
     /**
      *
@@ -114,7 +113,7 @@ public class LobbyController implements Runnable {
             case ACCEPT:
                 System.out.println("Challenge accepted.");
                 challengeAccepted(msg[2]);
-                 break;
+                break;
             case REJECT:
                 rejectChallenge(name);
                 break;
@@ -127,7 +126,7 @@ public class LobbyController implements Runnable {
     }
 
     private void challengeReceived(String s) {
-        lobby.updateReceivedList( s );
+        lobby.updateReceivedList(s);
     }
 
     private void challengeAccepted(String m) {
@@ -135,22 +134,21 @@ public class LobbyController implements Runnable {
     }
 
     private void rejectChallenge(String rej) {
-        
+
         lobby.removeFromSentChallenges(rej);
     }
 
     public void sendChallenge(String challengee) {
         try {
-            String send = CHALLENGE +  " " + challengee + " " + model.username;
+            String send = CHALLENGE + " " + challengee + " " + model.username;
             dataOut.write(send.getBytes());
             dataOut.flush();
         } catch (IOException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void sendAcceptResponse(String challengee)
-    {
+
+    public void sendAcceptResponse(String challengee) {
         try {
             String accept = ACCEPT + " " + challengee + " " + model.username;
             dataOut.write(accept.getBytes());
@@ -163,25 +161,19 @@ public class LobbyController implements Runnable {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void sendRejectResponse(String challengee)
-    {
+
+    public void sendRejectResponse(String challengee) {
         try {
             String reject = REJECT + " " + challengee + " " + model.username;
             dataOut.write(reject.getBytes());
             dataOut.flush();
-            
+
         } catch (IOException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    public void newChallengeGame()
-    {
+
+    public void newChallengeGame() {
         model.openGameConnection();
     }
-    
-   
 }
-
-
