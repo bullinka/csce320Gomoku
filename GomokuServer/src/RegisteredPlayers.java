@@ -15,10 +15,11 @@ import java.util.logging.Logger;
 
 public class RegisteredPlayers 
 {
-    static Map users = new HashMap();
-    File f = new File("users.txt");
-    FileWriter fw;
-    PrintWriter pw;
+    @SuppressWarnings("Convert2Diamond")
+    private static final Map<String, String> users = new HashMap<String, String>();
+    private final File f = new File("users.txt");
+    private FileWriter fw;
+    private PrintWriter pw;
     
     /**
      * Constructor. Fills a hashmap with values from a text file stored
@@ -40,7 +41,7 @@ public class RegisteredPlayers
         } catch (FileNotFoundException ex) {
             Logger.getLogger(RegisteredPlayers.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(RegisteredPlayers.class.getName()).log(Level.SEVERE, null, e);
 	}
     }
     

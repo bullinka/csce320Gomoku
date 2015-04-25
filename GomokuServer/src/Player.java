@@ -17,14 +17,7 @@ import java.util.logging.Logger;
  */
 public class Player implements Runnable {
     //fields
-    private final String REGISTER = "register";
-    private final String LOGIN = "login";
-    private final String CHALLENGE = "challenge";
-    private final String ACCEPT = "accept";
-    private final String REJECT = "reject";
-    private final String SUCCESS = "success";
-    private final String FAIL = "fail";
-    private final String ONLINE = "online";
+    private final Constants constant = new Constants();
 
     private String username;
     private final Socket socket;
@@ -37,6 +30,7 @@ public class Player implements Runnable {
     private final ServerController controller;
     private InetAddress IP;
     private String msg;
+    private boolean inGame = false;
 
     /**
      * Constructs the player class
@@ -83,6 +77,7 @@ public class Player implements Runnable {
      * @param message
      */
     public void sendMessage(String message) {
+        @SuppressWarnings("LocalVariableHidesMemberVariable")
         byte[] msg = message.getBytes();
 
 
@@ -142,47 +137,58 @@ public class Player implements Runnable {
      * @param msg
      * @return
      */
+    @SuppressWarnings("ConvertToStringSwitch")
     public String processMessage(String msg) {
     	    System.out.println(msg);
         //String msg = removeFormattingCharacters(mssg); 
         String[] message = msg.split(" ");
-        if (message[0].equals(REGISTER)) {
+        if(message[0].equals(constant.REGISTER)) {
             
             if (controller.registerPlayer(message[1], message[2])) {
                 controller.addPlayer(username = message[1]);
                 addToMatchMaking(message[1], this);
                 //System.out.println(username);
-                return SUCCESS + " " + controller.getAllUserNames();
+                return constant.SUCCESS + " " + controller.getAllUserNames();
             } else {
-                return FAIL;
+                return constant.FAIL;
             }
-        } else if (message[0].equals(LOGIN)) {
-            controller.sendMessageToAll(ONLINE + " " + controller.getAllUserNames() + " " + message[1]);
+        } else if (message[0].equals(constant.LOGIN)) {
+            controller.sendMessageToAll(constant.ONLINE + " " + controller.getAllUserNames() + " " + message[1]);
             if (controller.loginPlayer(message[1], message[2])) {
                 controller.addPlayer(username = message[1]);
                 addToMatchMaking(message[1], this);
-                return SUCCESS + " " + controller.getAllUserNames() ;
+                return constant.SUCCESS + " " + controller.getAllUserNames() ;
             } else {
-                return FAIL;
+                return constant.FAIL;
             }
-        } else if (message[0].equals(CHALLENGE)) {
+        } else if (message[0].equals(constant.CHALLENGE)) {
            controller.sendChallenge(message[1], message[0]+" "+message[2]);
            return "";
-        } else if (message[0].equals(ACCEPT)) {
+        } else if (message[0].equals(constant.ACCEPT)) {
            controller.sendResponse(message[1], message[0]+ " "+message[2] + " " + controller.getUsersIPAddress(message[2]));
            return "";
-        } else if (message[0].equals(REJECT)) {
+        } else if (message[0].equals(constant.REJECT)) {
             controller.sendResponse(message[1], message[0]+ " "+message[2]);
             return "";
         }
         //MYCODE
         
-        return FAIL;
+        return constant.FAIL;
     }
     
     public String getRemoteIPAddress()
     {
         return socket.getRemoteSocketAddress().toString();
+    }
+    
+    public void available()
+    {
+        inGame = false;
+    }
+    
+    public void notAvailable()
+    {
+        inGame = true;
     }
     /*
     public String removeFormattingCharacters(final String toBeEscaped) {

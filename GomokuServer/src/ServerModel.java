@@ -14,7 +14,7 @@ import java.util.List;
  * @author PLUCSCE
  */
 public class ServerModel {
-    private final String ONLINE = "online"; 
+   private final Constants constant = new Constants(); 
     
    private int numConnections;
    private List<Player> allPlayers;
