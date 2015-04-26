@@ -59,10 +59,13 @@ public class LobbyView extends javax.swing.JPanel {
         gomokuLabel = new javax.swing.JLabel();
         onlinePlayerPane = new javax.swing.JScrollPane();
         onlinePlayersList = new javax.swing.JList();
+        onlinePlayersList.setPrototypeCellValue("Index 1234567");
         challengesReceivedPane = new javax.swing.JScrollPane();
         challengesReceivedList = new javax.swing.JList();
+        challengesReceivedList.setPrototypeCellValue("Index 1234567");
         challengesSentPane = new javax.swing.JScrollPane();
         challengesSentList = new javax.swing.JList();
+        challengesSentList.setPrototypeCellValue("Index 1234567");
         quitB = new javax.swing.JButton();
         acceptB = new javax.swing.JButton();
         rejectB = new javax.swing.JButton();

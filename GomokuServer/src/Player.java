@@ -106,6 +106,7 @@ public class Player implements Runnable {
                     msg = new String(b, 0, len);
                     //System.out.println(msg);
                     sendMessage(processMessage(msg));
+                    controller.postMessage(msg + "\n");
                 } else {
 
                     //closes the socket
@@ -139,11 +140,11 @@ public class Player implements Runnable {
      */
     @SuppressWarnings("ConvertToStringSwitch")
     public String processMessage(String msg) {
-    	    System.out.println(msg);
+    	    //System.out.println(msg);
         //String msg = removeFormattingCharacters(mssg); 
         String[] message = msg.split(" ");
         if(message[0].equals(constant.REGISTER)) {
-            
+            controller.sendMessageToAll(constant.ONLINE + " " + controller.getAllUserNames() + " " + message[1]);
             if (controller.registerPlayer(message[1], message[2])) {
                 controller.addPlayer(username = message[1]);
                 addToMatchMaking(message[1], this);

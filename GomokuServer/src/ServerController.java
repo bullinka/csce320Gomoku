@@ -112,6 +112,11 @@ public class ServerController implements Runnable {
         view.addNewPlayer(username + "\n");
     }
     
+    public void postMessage(String message)
+    {
+        view.addMessageToView(message);
+    }
+    
     /**
      * removes a connection from the list of all connections
      * @param c 
