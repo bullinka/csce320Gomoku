@@ -42,6 +42,7 @@ public class ClientModel implements Runnable{
     public final int gameHeight = 30;
     public final int gameWidth = 30;
     private Thread worker;
+    private final String GAME = "game";
    
     private int port = 27200;
     /**
