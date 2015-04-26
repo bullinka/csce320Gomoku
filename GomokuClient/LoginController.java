@@ -203,4 +203,12 @@ public class LoginController {
         }
 
     }
+
+	/**
+     * Transfers GUI from login to game GUI
+     */
+	public void aiGame(String difficulty) {
+		model.aiGameTrans(difficulty);
+		
+	}
 }
