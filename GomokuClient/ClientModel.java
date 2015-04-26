@@ -147,6 +147,11 @@ public class ClientModel implements Runnable{
             Logger.getLogger(ClientModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void aiGameTrans(String difficulty) {
+		frame.updateView(GAME);
+		
+	}
   
 
 

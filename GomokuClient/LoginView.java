@@ -237,7 +237,10 @@ public class LoginView extends javax.swing.JPanel {
     }
     
     private void aiListActionPerformed(ActionEvent evt) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                String difficulty = (String) aiList.getSelectedItem();
+               if(!difficulty.equals("Select Difficulty")){
+            	   controller.aiGame(difficulty);
+               }
             }
     
     private void ipTFActionPerformed(ActionEvent evt) {
