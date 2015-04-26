@@ -70,9 +70,18 @@ public class LobbyView extends javax.swing.JPanel {
         acceptB = new javax.swing.JButton();
         rejectB = new javax.swing.JButton();
         challengeB = new javax.swing.JButton();
-   onlineUsersL = new javax.swing.JLabel();
+
+        onlineUsersL = new javax.swing.JLabel();
         challengesRecdL = new javax.swing.JLabel();
         challengesSentL = new javax.swing.JLabel();
+
+        challengeB.setText("Challenge");
+
+        onlineUsersL.setText("Online Users");
+
+        challengesRecdL.setText("Challenges Received");
+
+        challengesSentL.setText("Challenges Sent");
 
         gomokuLabel.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         gomokuLabel.setText("Gomoku");
@@ -87,6 +96,12 @@ public class LobbyView extends javax.swing.JPanel {
 
         challengesReceivedList.setModel(receivedModel);
         challengesReceivedPane.setViewportView(challengesReceivedList);
+        challengesReceivedList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                challengesReceivedListValueChanged(evt);
+            }
+        });
+
 
         challengesSentList.setModel(sentModel);
         challengesSentPane.setViewportView(challengesSentList);
@@ -99,6 +114,12 @@ public class LobbyView extends javax.swing.JPanel {
         });
 
         acceptB.setText("Accept");
+        acceptB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                acceptBActionPerformed(evt);
+            }
+        });
+
 
         rejectB.setText("Reject");
         rejectB.addActionListener(new java.awt.event.ActionListener() {
@@ -108,14 +129,12 @@ public class LobbyView extends javax.swing.JPanel {
         });
 
         challengeB.setText("Challenge");
-
-        onlineUsersL.setText("Online Users");
-
-        challengesRecdL.setText("Challenges Received");
-
-        challengesSentL.setText("Challenges Sent");
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        challengeB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                challengeBActionPerformed(evt);
+            }
+        });
+       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,10 +260,9 @@ public class LobbyView extends javax.swing.JPanel {
     private javax.swing.JButton quitB;
     private javax.swing.JButton rejectB;
     private javax.swing.JButton challengeB;
-    
-      private javax.swing.JLabel challengesRecdL;
-      private javax.swing.JLabel challengesSentL;
-      private javax.swing.JLabel onlineUsersL;
+    private javax.swing.JLabel challengesRecdL;
+    private javax.swing.JLabel challengesSentL;
+    private javax.swing.JLabel onlineUsersL;
     // End of variables declaration//GEN-END:variables
 
     
