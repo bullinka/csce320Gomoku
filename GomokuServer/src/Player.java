@@ -49,7 +49,12 @@ public class Player implements Runnable {
         controller = cont;
         //getMessages();
     }
-
+    
+    /**
+     * adds the specified player to matchmaking
+     * @param username
+     * @param p 
+     */
     public void addToMatchMaking(String username, Player p){
         controller.addToMatchMaking(username, p);
     }
@@ -182,11 +187,17 @@ public class Player implements Runnable {
         return socket.getRemoteSocketAddress().toString();
     }
     
+    /**
+     * Sets a player to "not in a game"
+     */
     public void available()
     {
         inGame = false;
     }
     
+    /**
+     * sets a player to "in game"
+     */
     public void notAvailable()
     {
         inGame = true;

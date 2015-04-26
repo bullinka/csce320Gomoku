@@ -23,6 +23,7 @@ import java.net.InetAddress;
  */
 public class ServerController implements Runnable {
     //fields
+    private Constants constant = new Constants();
     private final ServerModel model;
     private final ServerView view;
     private ServerSocket serverSocket;
@@ -112,6 +113,10 @@ public class ServerController implements Runnable {
         view.addNewPlayer(username + "\n");
     }
     
+    /**
+     * Posts a message to the server view
+     * @param message 
+     */
     public void postMessage(String message)
     {
         view.addMessageToView(message);
@@ -125,6 +130,7 @@ public class ServerController implements Runnable {
     {
         model.removeConnection(c);
         view.setNumConnections(model.getNumConnections());
+        model.sendMessageToAll(constant.ONLINE + " " + model.getAllUsernames());
     }
     
     /**
@@ -151,38 +157,55 @@ public class ServerController implements Runnable {
         return model.login(uName, pWord);
     }
     
+    /**
+     * returns a string containing all online users usernames
+     * @return 
+     */
     public String getAllUserNames()
     {
         return model.getAllUsernames();
     }
     /**
-     * 
+     * Sends a challenge message to the specified player
      * @param challengee
      * @param message 
      */
     public void sendChallenge(String challengee, String message) {
-        model.sendChallenge(challengee, message);//To change body of generated methods, choose Tools | Templates.
+        model.sendChallenge(challengee, message);
     }
 
     /**
-     * 
+     * Method to send a response to a challenging user
      * @param challenger
      * @param response 
      */
     public void sendResponse(String challenger, String response) {
-         model.sendResponse(challenger, response); //To change body of generated methods, choose Tools | Templates.
+         model.sendResponse(challenger, response); 
     }
     
-    
+    /**
+     * Adds a user to matchmaking
+     * @param username
+     * @param p 
+     */
    public void addToMatchMaking(String username, Player p){
        model.addToMatchMaking(username, p);
    }
    
+    /**
+     * Sends a message to all of the users online
+     * @param message
+     */
    public void sendMessageToAll(String message)
    {
        model.sendMessageToAll(message);
    }
    
+   /**
+    * returns the specified users IP address as a string
+    * @param user
+    * @return 
+    */
    public String getUsersIPAddress(String user)
    {
        return model.getUsersIPAddress(user);
