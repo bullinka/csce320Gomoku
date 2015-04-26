@@ -65,6 +65,11 @@ public class ServerView extends javax.swing.JFrame {
     {
         playersTA.append(newPlayer);
     }
+    
+    public void addMessageToView(String message)
+    {
+        playersTA.append(message);
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
