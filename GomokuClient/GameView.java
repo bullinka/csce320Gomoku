@@ -21,7 +21,7 @@ public class GameView extends javax.swing.JPanel {
     private final int PLAYERONE = 1;
     
     private final JButton[][] grid;
-    private Map<JButton, String> buttonMap = new HashMap();
+    private Map<JButton, String> buttonMap = new HashMap<Jbutton, String>();
     private GameController controller;
     private int x;
     private int y;
