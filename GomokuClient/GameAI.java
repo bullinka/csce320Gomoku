@@ -20,6 +20,11 @@ public class GameAI {
         
     }
     
+    public void setGameBoard(GameBoard board)
+    {
+        this.board = board;
+    }
+    
     /**
      * Method to start the AI
      */
@@ -33,8 +38,8 @@ public class GameAI {
      * @param x
      * @param y 
      */
-    public void makeMove(int x, int y)
+    public void makeMove(int x, int y, int player)
     {
-        board.makeMove(x, y, false);
+        board.moveMade(x, y, player);
     }
 }

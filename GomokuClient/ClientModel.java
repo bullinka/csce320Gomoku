@@ -51,8 +51,8 @@ public class ClientModel implements Runnable{
      * @param host
      * @param port 
      */
-  public void createFrame(LoginView login, LobbyView lobby){
-      frame  = new Frame(login, lobby);
+  public void createFrame(LoginView login, LobbyView lobby, GameView game){
+      frame  = new Frame(login, lobby, game);
   } 
    /**
     * Creates new socket connection between client and server. Returns true if

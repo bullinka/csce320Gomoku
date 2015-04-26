@@ -13,6 +13,11 @@ public class Game {
     private GameBoard board;
     private GameAI ai;
     
+    public Game()
+    {
+        board = new GameBoard(30, 30);
+    }
+    
     /**
      * Game Constructor
      * @param it
@@ -22,11 +27,26 @@ public class Game {
         
     }
     
+    public void setGameBoard(GameBoard gb)
+    {
+        this.board = gb;
+    }
+    
+    public void setAI(GameAI ai)
+    {
+        this.ai = ai;
+    }
+    
     /**
      * Method that will start a game.
      */
     public void playGame()
     {
         
+    }
+    
+    public void moveMade(int x, int y, int player)
+    {
+        board.moveMade(x, y, player);
     }
 }

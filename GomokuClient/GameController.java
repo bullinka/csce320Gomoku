@@ -10,6 +10,7 @@ public class GameController {
     private GameAI ai;
     private ClientModel model;
     private GameView view;
+    private GameModel gameModel;
 
     public void setModel(ClientModel m) {
         this.model = m;
@@ -21,9 +22,26 @@ public class GameController {
 
     void newGame() {
         System.out.println("NEW GAME METHOD");
-        System.out.println(view);
-        System.out.println( model.gameHeight +" "+ model.gameWidth);
-        view = new GameView(model.gameHeight, model.gameWidth);
-        view.setVisible(true);
+        
+    }
+    
+    public void setGameModel(GameModel gm)
+    {
+        this.gameModel = gm;
+    }
+    
+    public void setGameBoard(GameBoard gb)
+    {
+        this.board = gb;
+    }
+    
+    public void setAI(GameAI ai)
+    {
+        this.ai = ai;
+    }
+    
+    public void moveMade(int x, int y, int player)
+    {
+        gameModel.moveMade(x, y, player);
     }
 }

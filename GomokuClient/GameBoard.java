@@ -1,3 +1,6 @@
+
+import java.util.Arrays;
+
 /**
  * Team One
  * Gomoku
@@ -10,7 +13,10 @@
  * 3/14/2015 - Class created by Joseph Bowley.
  */
 public class GameBoard {
-    private int[][] board;
+    private final int[][] board;
+    private final int NOTPLAYED = 0;
+    private final int PLAYERONE = 1;
+    private final int PLAYERTWO = 2;
     
     /**
      * GameBoard constructor.
@@ -20,6 +26,8 @@ public class GameBoard {
      */
     public GameBoard(int x, int y)
     {
+        board = new int[x][y];
+        Arrays.fill(board, 0);
         
     }
     
@@ -31,9 +39,10 @@ public class GameBoard {
      * @param y
      * @param player 
      */
-    public void makeMove(int x, int y, boolean player)
+    public void moveMade(int x, int y, int player)
     {
-        
+        board[x][y] = player;
+        printBoard();
     }
     
     /**
@@ -51,6 +60,10 @@ public class GameBoard {
      */
     public boolean isFiveInARow()
     {
-        return false;
+        return false; // not yet made
+    }
+    public void printBoard()
+    {
+        Arrays.toString(board);
     }
 }

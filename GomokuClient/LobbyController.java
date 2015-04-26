@@ -130,6 +130,7 @@ public class LobbyController implements Runnable {
     }
 
     private void challengeAccepted(String m) {
+        model.lobbyGameTrans();
         model.connectToOpponent(m);
     }
 

@@ -15,9 +15,10 @@ public class Frame extends javax.swing.JFrame {
     /**
      * Creates new form frame
      */
-    public Frame(LoginView login, LobbyView lobby) {
+    public Frame(LoginView login, LobbyView lobby, GameView game) {
         loginView1 = login;
         lobbyView1 = lobby;
+        gameView1 = game;
         initComponents();
         
     }
@@ -37,7 +38,7 @@ public class Frame extends javax.swing.JFrame {
        // loginView1 = new LoginView();
         lobbyPane = new javax.swing.JPanel();
        // lobbyView1 = new LobbyView();
-        jPanel4 = new javax.swing.JPanel();
+        gamePanel = new javax.swing.JPanel();
         PanThree = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -89,28 +90,26 @@ public class Frame extends javax.swing.JFrame {
         lobbyPane.getAccessibleContext().setAccessibleName("lobby");
         lobbyPane.getAccessibleContext().setAccessibleDescription("");
 
-        jPanel4.setMinimumSize(new java.awt.Dimension(600, 400));
+        gamePanel.setMinimumSize(new java.awt.Dimension(600, 400));
 
-        PanThree.setText("PanThree");
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
+        gamePanel.setLayout(gamePanelLayout);
+        gamePanelLayout.setHorizontalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gamePanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-                .addComponent(PanThree)
+				.addComponent(gameView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(551, Short.MAX_VALUE))
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+        gamePanelLayout.setVerticalGroup(
+            gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(gamePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(PanThree)
+                .addComponent(gameView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(375, Short.MAX_VALUE))
         );
 
-        mainPane.add(jPanel4, "card3");
+        mainPane.add(gamePanel, "game");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,27 +136,20 @@ public class Frame extends javax.swing.JFrame {
    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel PanThree;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel gamePanel;
     private javax.swing.JPanel lobbyPane;
     private LobbyView lobbyView1;
     private javax.swing.JPanel loginPane;
     private LoginView loginView1;
     private javax.swing.JPanel mainPane;
     // End of variables declaration//GEN-END:variables
-
+    private GameView gameView1;
+	
    public void updateView(String l) {
         CardLayout card = (CardLayout)mainPane.getLayout();
         card.show(mainPane, l);
         
     }
-   
-   public void addPanels(LoginView lv, LobbyView lov) //, GameView gv, LeaderboardView lbv)
-   {
-       mainPane.add(lv, "card0");
-       mainPane.add(lov, "card1");
-       //mainPane.add(gv, "card2");
-       //mainPane.add(lbv, "card3");
-   }
 
     void updateOnlinePlayers(String[] online) {
         lobbyView1.updateOnlinePlayerList(online);

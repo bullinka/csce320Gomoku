@@ -22,8 +22,8 @@ public class Main {
              
              LobbyView lobbyView = new LobbyView();
              LoginView loginView = new LoginView();
-             //GameView gameView = new GameView(model.gameHeight, model.gameWidth);
-             model.createFrame(loginView, lobbyView);
+             GameView gameView = new GameView(model.gameHeight, model.gameWidth);
+             model.createFrame(loginView, lobbyView, gameView);
              
              
              
@@ -40,6 +40,9 @@ public class Main {
              
              GameController gameController = new GameController();
              gameController.setModel(model);
+             gameController.setView(gameView);
+             gameView.setController(gameController);
+             
              
 
              model.setLoginController(loginController);
