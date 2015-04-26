@@ -35,18 +35,13 @@ public class Frame extends javax.swing.JFrame {
 
         mainPane = new javax.swing.JPanel();
         loginPane = new javax.swing.JPanel();
-       // loginView1 = new LoginView();
         lobbyPane = new javax.swing.JPanel();
-       // lobbyView1 = new LobbyView();
         gamePanel = new javax.swing.JPanel();
         PanThree = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMinimumSize(new java.awt.Dimension(644, 420));
 
         mainPane.setLayout(new java.awt.CardLayout());
-
-        loginPane.setMinimumSize(new java.awt.Dimension(600, 400));
 
         javax.swing.GroupLayout loginPaneLayout = new javax.swing.GroupLayout(loginPane);
         loginPane.setLayout(loginPaneLayout);
@@ -54,20 +49,18 @@ public class Frame extends javax.swing.JFrame {
             loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPaneLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(loginView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginView1, 400, 500, 600)
                 .addContainerGap(70, Short.MAX_VALUE))
         );
         loginPaneLayout.setVerticalGroup(
             loginPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(loginPaneLayout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(loginView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(loginView1, 400, 500, 600)
                 .addContainerGap(66, Short.MAX_VALUE))
         );
 
         mainPane.add(loginPane, "loginPane");
-
-        lobbyPane.setMinimumSize(new java.awt.Dimension(600, 400));
 
         javax.swing.GroupLayout lobbyPaneLayout = new javax.swing.GroupLayout(lobbyPane);
         lobbyPane.setLayout(lobbyPaneLayout);
@@ -75,14 +68,14 @@ public class Frame extends javax.swing.JFrame {
             lobbyPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lobbyPaneLayout.createSequentialGroup()
                 .addGap(105, 105, 105)
-                .addComponent(lobbyView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lobbyView1, 400, 500, 600)
                 .addContainerGap(111, Short.MAX_VALUE))
         );
         lobbyPaneLayout.setVerticalGroup(
             lobbyPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lobbyPaneLayout.createSequentialGroup()
                 .addContainerGap(74, Short.MAX_VALUE)
-                .addComponent(lobbyView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lobbyView1, 400,500,600)
                 .addContainerGap())
         );
 
@@ -90,7 +83,6 @@ public class Frame extends javax.swing.JFrame {
         lobbyPane.getAccessibleContext().setAccessibleName("lobby");
         lobbyPane.getAccessibleContext().setAccessibleDescription("");
 
-        gamePanel.setMinimumSize(new java.awt.Dimension(600, 400));
 
         javax.swing.GroupLayout gamePanelLayout = new javax.swing.GroupLayout(gamePanel);
         gamePanel.setLayout(gamePanelLayout);
@@ -98,14 +90,14 @@ public class Frame extends javax.swing.JFrame {
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gamePanelLayout.createSequentialGroup()
                 .addGap(27, 27, 27)
-				.addComponent(gameView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+				.addComponent(gameView1, 400,400,400)
                 .addContainerGap(551, Short.MAX_VALUE))
         );
         gamePanelLayout.setVerticalGroup(
             gamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(gamePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(gameView1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(gameView1, 400,400,400)
                 .addContainerGap(375, Short.MAX_VALUE))
         );
 
@@ -117,16 +109,17 @@ public class Frame extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(mainPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(mainPane, 400, 500, 600)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mainPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainPane, 400, 500, 600)
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
+       this.setMaximumSize(new java.awt.Dimension(400,600));
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
