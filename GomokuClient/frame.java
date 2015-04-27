@@ -20,7 +20,7 @@ public class Frame extends javax.swing.JFrame {
         lobbyView1 = lobby;
         gameView1 = game;
         initComponents();
-        
+        this.setTitle("Gomoku");
     }
 
     

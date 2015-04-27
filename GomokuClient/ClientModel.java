@@ -46,6 +46,8 @@ public class ClientModel implements Runnable{
     private final String LOBBY = "lobby";
    
     private int port = 27200;
+    
+  
     /**
      * Associates ClientModel and LoginController.  Opens new socket to
      * specified host and port.
@@ -98,10 +100,16 @@ public class ClientModel implements Runnable{
        this.gameController = cont;
     }
  
-  public void loginLobbyTrans(){
-
+  /**
+   * Updates frame to display lobby view.
+   * Also updates frame title bar to display
+   * current username.
+   * @param user 
+   */
+  public void loginLobbyTrans(String user){  
       loginController.closeView(LOBBY);
       lobbyController.setupIOStreams();
+      frame.setTitle("Gomoku || " + user);
       
   }
 
