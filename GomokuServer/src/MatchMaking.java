@@ -52,11 +52,21 @@ public class MatchMaking {
         sendMessage(toPlayer, challengeRequest);
     }
     
+    /**
+     * Sends a response from a player who has been challenged to the challenger
+     * @param toPlayer
+     * @param response 
+     */
     public void respond(String toPlayer, String response){
         sendMessage(toPlayer, response);
         
     }
     
+    /**
+     * Returns the specified users IP Address as a string without an extra characters
+     * @param user
+     * @return 
+     */
     public String getUsersIPAddress(String user)
     {
         return playerMap.get(user).getRemoteIPAddress().split(":")[0].substring(1);

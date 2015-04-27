@@ -44,11 +44,22 @@ public class ServerModel {
        return registeredPlayers.registerIsRegistered(username, password);
    }
    
+   /**
+    * logs in the player, returns true if successful, false otherwise
+    * @param username
+    * @param password
+    * @return 
+    */
    public boolean login(String username, String password)
    {
        return registeredPlayers.loginIsRegistered(username, password);
    }
    
+   /**
+    * Adds a player to matchmaking so they can be placed into matches
+    * @param username
+    * @param p 
+    */
    public void addToMatchMaking(String username, Player p){
        matchmaker.addPlayer(username, p);
    }
@@ -102,6 +113,10 @@ public class ServerModel {
        numConnections = 0;
    }
    
+   /**
+    * Returns a string containing all of the users usernames that are online
+    * @return 
+    */
    public String getAllUsernames()
    {
        String allNames = new String();
@@ -132,6 +147,10 @@ public class ServerModel {
          matchmaker.respond(challanger, response);
     }
     
+    /**
+     * Sends a message to all online players
+     * @param message 
+     */
     public void sendMessageToAll(String message)
     {
         for (Player p : allPlayers)
@@ -140,6 +159,11 @@ public class ServerModel {
         }
     }
     
+    /**
+     * returns the ip address as a string of the specified user.
+     * @param user
+     * @return 
+     */
     public String getUsersIPAddress(String user)
     {
         return matchmaker.getUsersIPAddress(user);

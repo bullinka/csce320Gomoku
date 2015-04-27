@@ -66,6 +66,11 @@ public class ServerView extends javax.swing.JFrame {
         playersTA.append(newPlayer);
     }
     
+    /**
+     * Appends a message to the server view
+     * Used for easier server debugging
+     * @param message 
+     */
     public void addMessageToView(String message)
     {
         playersTA.append(message);
