@@ -270,7 +270,11 @@ public class LobbyView extends javax.swing.JPanel {
      * @param userSelected 
      */
     private void updateSentList(String userSelected) {
+        if(userSelected.equals(controller.getUsername())){
+    		displayErrorMessage("User cannot challenge self.");
+    	}else{
         sentModel.addElement(userSelected);
+        }
     }
     
     /**
@@ -298,6 +302,10 @@ public class LobbyView extends javax.swing.JPanel {
      */
     public void removeFromReceivedChallenges(String name){
         receivedModel.removeElement(name);
+    }
+
+    public void challengeSelfError() {
+        displayErrorMessage("User cannot challenge self.");
     }
 
     void displayErrorMessage(String errorMessage) {
