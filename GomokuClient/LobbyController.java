@@ -50,22 +50,15 @@ public class LobbyController implements Runnable {
     }
 
     /**
-     *
-     */
-    private void playRandom() {
-    }
-
-    /**
-     *
-     * @param online
+     * Updates list of online players in lobby view.
+     * @param online list of online players received from server.
      */
     public void updateOnlinePlayers(String[] online) {
-        System.out.println(lobby instanceof LobbyView);
         lobby.updateOnlinePlayerList(online);
     }
 
     /**
-     *
+     *Sets up IO streams for lobby.
      */
     public void setupIOStreams() {
         try {
@@ -82,7 +75,10 @@ public class LobbyController implements Runnable {
         }
     }
 
-    // will listen for messages from server.
+    /**
+     * Listens for messages from server until server goes offline or user
+     * quits application
+     */
     @Override
     public void run() {
         while (true) {
@@ -92,17 +88,21 @@ public class LobbyController implements Runnable {
                 if (len > 0) {
                     receivedMsg = new String(msg, 0, len);
                     String[] msgArray;
-                    System.out.println("Messages from server: " + receivedMsg);
                     msgArray = receivedMsg.split("[ ]+");
 
                     processMessage(msgArray);
                 }
             } catch (IOException ex) {
                 Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+                //need to add error handling for server going offline while in lobby
             }
         }
     }
-
+    /**
+     * Processes messages received from server and routes them to appropriate
+     * method for handling.
+     * @param msg message to be routed
+     */
     private void processMessage(String[] msg) {
         String temp = msg[0];
         String name = msg[1];
@@ -115,7 +115,7 @@ public class LobbyController implements Runnable {
                 challengeAccepted(msg[2]);
                 break;
             case REJECT:
-                rejectChallenge(name);
+                challengeRejected(name);
                 break;
             case ONLINE:
                 lobby.updateOnlinePlayerList(msg);
@@ -125,20 +125,43 @@ public class LobbyController implements Runnable {
         }
     }
 
-    private void challengeReceived(String s) {
-        lobby.updateReceivedList(s);
+    /**
+     * When a challenge is received, this method is called to update the 
+     * Challenges Received list in the Lobby view.
+     * @param name name to add to challenges received list
+     */
+    private void challengeReceived(String name) {
+        lobby.updateReceivedList(name);
     }
 
+    /**
+     * Method is called when a user's challenge is accepted by the other user.
+     * Transitions user from Lobby to Game view and connects to accepting user.
+     * @param m IP address of accepting user (server host)
+     */
     private void challengeAccepted(String m) {
         model.lobbyGameTrans();
         model.connectToOpponent(m);
     }
+    
+    
+    /**
+     * Method is called when user's challenge is reject by the other user.
+     * Removes the chalengee's username from the Challenges Sent list in the
+     * Lobby.
+     * @param name name of user that rejected the challenge
+     */
+    private void challengeRejected(String name) {
 
-    private void rejectChallenge(String rej) {
-
-        lobby.removeFromSentChallenges(rej);
+        lobby.removeFromSentChallenges(name);
     }
 
+    /**
+     * Method is called when user clicks "Challenge" button in Lobby View.
+     * Writes message to server with following format:
+     *      "challenge challengee challenger"
+     * @param challengee Person to be challenged
+     */
     public void sendChallenge(String challengee) {
         try {
             String send = CHALLENGE + " " + challengee + " " + model.username;
@@ -146,34 +169,50 @@ public class LobbyController implements Runnable {
             dataOut.flush();
         } catch (IOException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+            //need to add error handling
         }
     }
-
+    
+    /**
+     * Method is called when user clicks "Accept" button in Lobby.
+     * Writes out a message to server with following format:
+     *              "accept chalengee challenger"
+     * Triggers transition from Lobby view to Game view and initiates a new game.
+     * @param challengee 
+     */
     public void sendAcceptResponse(String challengee) {
         try {
             String accept = ACCEPT + " " + challengee + " " + model.username;
             dataOut.write(accept.getBytes());
             dataOut.flush();
-            System.out.println("before lobby transition");
             model.lobbyGameTrans();
-            System.out.println("about to make new challenge game");
             newChallengeGame();
         } catch (IOException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    /**
+     * Method is called when user clicks "Reject" button in Lobby view.
+     * Writes out a message to server with following format:
+     *          "reject challengee challenger"
+     * @param challengee 
+     */
     public void sendRejectResponse(String challengee) {
         try {
             String reject = REJECT + " " + challengee + " " + model.username;
             dataOut.write(reject.getBytes());
             dataOut.flush();
+            lobby.removeFromReceivedChallenges(challengee);
 
         } catch (IOException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+            //Add error handling
         }
     }
-
+    /**
+     * Called when a user accepts a challenge.
+     * Creates a new server socket in the model.
+     */
     public void newChallengeGame() {
         model.openGameConnection();
     }

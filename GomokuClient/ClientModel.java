@@ -43,6 +43,7 @@ public class ClientModel implements Runnable{
     public final int gameWidth = 30;
     private Thread worker;
     private final String GAME = "game";
+    private final String LOBBY = "lobby";
    
     private int port = 27200;
     /**
@@ -99,7 +100,7 @@ public class ClientModel implements Runnable{
  
   public void loginLobbyTrans(){
 
-      loginController.closeView("lobby");
+      loginController.closeView(LOBBY);
       lobbyController.setupIOStreams();
       
   }
@@ -118,7 +119,7 @@ public class ClientModel implements Runnable{
     }
 
     void lobbyGameTrans() {
-        frame.updateView("game");
+        frame.updateView(GAME);
     }
 
     @Override
