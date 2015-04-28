@@ -176,6 +176,9 @@ public class Player implements Runnable {
         } else if (message[0].equals(constant.REJECT)) {
             controller.sendResponse(message[1], message[0]+ " "+message[2]);
             return "";
+        }else if (message[0].equals(constant.RESCIND)) {
+            controller.sendRescind(message[1], message[0]+ " "+message[2]);
+            return "";
         }
         //MYCODE
         

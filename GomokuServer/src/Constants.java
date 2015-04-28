@@ -17,4 +17,5 @@ public class Constants {
     public final String SUCCESS = "success";
     public final String FAIL = "fail";
     public final String ONLINE = "online"; 
+    public final String RESCIND = "rescind";
 }

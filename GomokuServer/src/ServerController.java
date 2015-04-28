@@ -210,4 +210,9 @@ public class ServerController implements Runnable {
    {
        return model.getUsersIPAddress(user);
    }
+
+public void sendRescind(String challenger, String response) {
+	model.sendRescind(challenger, response); 
+	
+}
 }

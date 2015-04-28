@@ -6,6 +6,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -30,7 +32,8 @@ public class LobbyController implements Runnable {
     final private String STATS = "stats";
     final private String ACCEPT = "accept";
     final private String REJECT = "reject";
-
+    final private String RESCIND =  "rescind";
+    
     /**
      *
      * @param m
@@ -120,12 +123,24 @@ public class LobbyController implements Runnable {
             case ONLINE:
                 lobby.updateOnlinePlayerList(msg);
                 break;
+            case RESCIND:
+            	challengeRescind(name);
+            	break;
             default:
                 break;
         }
     }
 
     /**
+     * Rescinds challenge.
+     * @param name
+     */
+    private void challengeRescind(String name) {
+		lobby.removeFromReceivedChallenges(name);
+		
+	}
+
+	/**
      * When a challenge is received, this method is called to update the 
      * Challenges Received list in the Lobby view.
      * @param name name to add to challenges received list
@@ -142,6 +157,8 @@ public class LobbyController implements Runnable {
     private void challengeAccepted(String m) {
         model.lobbyGameTrans();
         model.connectToOpponent(m);
+        sendRescindResponse(lobby.getSentList());
+           
     }
     
     
@@ -163,7 +180,7 @@ public class LobbyController implements Runnable {
      * @param challengee Person to be challenged
      */
     public void sendChallenge(String challengee) {
-	if(challengee.equals(model.username)){
+    	if(challengee.equals(model.username)){
     		lobby.challengeSelfError();
     	}else{
         try {
@@ -174,7 +191,7 @@ public class LobbyController implements Runnable {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
             //need to add error handling
         }
-	}
+    	}
     }
     
     /**
@@ -185,12 +202,14 @@ public class LobbyController implements Runnable {
      * @param challengee 
      */
     public void sendAcceptResponse(String challengee) {
+    	
         try {
             String accept = ACCEPT + " " + challengee + " " + model.username;
             dataOut.write(accept.getBytes());
             dataOut.flush();
             model.lobbyGameTrans();
             newChallengeGame();
+            sendRescindResponse(lobby.getSentList());
         } catch (IOException ex) {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -202,6 +221,7 @@ public class LobbyController implements Runnable {
      * @param challengee 
      */
     public void sendRejectResponse(String challengee) {
+    	
         try {
             String reject = REJECT + " " + challengee + " " + model.username;
             dataOut.write(reject.getBytes());
@@ -212,6 +232,7 @@ public class LobbyController implements Runnable {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
             //Add error handling
         }
+    	
     }
     /**
      * Called when a user accepts a challenge.
@@ -221,11 +242,31 @@ public class LobbyController implements Runnable {
         model.openGameConnection();
     }
 
- /**
+    /**
      * Used by view to get username from model.
      */
 	public String getUsername() {
 		
 		return model.username;
+	}
+	
+	 /**
+     * Called when a user enters a game.
+     * Sends rescind message to all challenges the player sent out.
+     */
+	public void sendRescindResponse(DefaultListModel<String> sentModel) {
+		  try {
+			  while(!sentModel.isEmpty()){
+	            String reject = RESCIND + " " + sentModel.getElementAt(0) + " " + model.username;
+	            dataOut.write(reject.getBytes());
+	            dataOut.flush();
+	            lobby.rescindFromSentChallenges(sentModel.getElementAt(0));
+			  }
+
+	        } catch (IOException ex) {
+	            Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
+	            //Add error handling
+	        }
+		  
 	}
 }

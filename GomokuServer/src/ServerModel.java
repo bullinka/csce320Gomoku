@@ -168,4 +168,9 @@ public class ServerModel {
     {
         return matchmaker.getUsersIPAddress(user);
     }
+
+	public void sendRescind(String challenger, String response) {
+		matchmaker.respond(challenger, response);
+		
+	}
 }

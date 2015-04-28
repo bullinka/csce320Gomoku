@@ -3,6 +3,7 @@
  * It is controlled by LobbyController.
  */
 import java.awt.event.ActionEvent;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -224,6 +225,8 @@ public class LobbyView extends javax.swing.JPanel {
      */
     private void acceptBActionPerformed(ActionEvent evt) {
         controller.sendAcceptResponse(userSelectedReceived);
+        
+        
     }
     /**
      * Action listener for rejectB. Sends reject challenge response to server
@@ -239,8 +242,10 @@ public class LobbyView extends javax.swing.JPanel {
      * @param evt 
      */
     private void challengeBActionPerformed(ActionEvent evt) {
+    	
         updateSentList(userSelected);
         controller.sendChallenge(userSelected);
+    	
     }
 
     /**
@@ -270,11 +275,11 @@ public class LobbyView extends javax.swing.JPanel {
      * @param userSelected 
      */
     private void updateSentList(String userSelected) {
-        if(userSelected.equals(controller.getUsername())){
+    	if(userSelected.equals(controller.getUsername())){
     		displayErrorMessage("User cannot challenge self.");
     	}else{
         sentModel.addElement(userSelected);
-        }
+    	}
     }
     
     /**
@@ -295,6 +300,9 @@ public class LobbyView extends javax.swing.JPanel {
         displayErrorMessage("User " + name + " rejected your game challenge.");
     }
     
+    public void challengeSelfError() {
+        displayErrorMessage("User cannot challenge self.");
+    }
     /**
      * Method called when user rejects a challenge.
      * Removes the rejected username from the list.
@@ -302,10 +310,6 @@ public class LobbyView extends javax.swing.JPanel {
      */
     public void removeFromReceivedChallenges(String name){
         receivedModel.removeElement(name);
-    }
-
-    public void challengeSelfError() {
-        displayErrorMessage("User cannot challenge self.");
     }
 
     void displayErrorMessage(String errorMessage) {
@@ -328,4 +332,13 @@ public class LobbyView extends javax.swing.JPanel {
     private javax.swing.JLabel challengesSentL;
     private javax.swing.JLabel onlineUsersL;
     // End of variables declaration//GEN-END:variables
+
+	public DefaultListModel<String> getSentList() {
+		return sentModel;
+	}
+
+	public void rescindFromSentChallenges(String name) {
+		sentModel.removeElement(name);
+		
+	}
 }
