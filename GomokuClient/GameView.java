@@ -1,11 +1,19 @@
 
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.Border;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -20,6 +28,12 @@ import javax.swing.JButton;
 public class GameView extends javax.swing.JPanel {
     private final JButton[][] grid;
     private Map<JButton, String> buttonMap = new HashMap<JButton, String>();
+    private GameController controller;
+    private JButton quitB;
+    private JPanel game = new JPanel();
+    private JPanel quit = new JPanel();
+    private JLabel gomoku;
+    //private JButton quitB -
     private final ActionListener listener = new ActionListener() {
 
         @Override
@@ -37,22 +51,55 @@ public class GameView extends javax.swing.JPanel {
      * @param length
      */
     public GameView(int width, int length){ //constructor
-        this.setLayout(new GridLayout(width,length)); //set layout
+        
+        this.setLayout(new BorderLayout());
+        game.setLayout(new GridLayout(width, length));
+        this.add(game, BorderLayout.CENTER);
+        
+        // this.setLayout(new GridLayout(width,length));
+      //  this.setLayout(new GridLayout(width,length)); //set layout
         grid=new JButton[width][length]; //allocate the size of grid
         for(int y=0; y<length; y++){
                 for(int x=0; x<width; x++){
                         grid[x][y]=new JButton(); //creates new button 
                         grid[x][y].addActionListener(listener);
-                        this.add(grid[x][y]); //adds button to grid
+                        //grid[x][y].setPreferredSize(new java.awt.Dimension(20,20));
+                        game.add(grid[x][y]); //adds button to grid
                         buttonMap.put(grid[x][y], Integer.toString(x) + " " + Integer.toString(y));
                 }
         }
+        
+        gomoku = new JLabel("Gomoku");
+        gomoku.setFont(new java.awt.Font("Tahoma", 1, 24));
+        this.add(gomoku, BorderLayout.NORTH);
+        quitB = new JButton("Quit");/* {
+            public Dimension getPreferredSize(){
+                return new Dimension(5, 25);
+            };
+        };*/
+       // Border spacer = BorderFactory.createEmptyBorder(5,5,5,5);
+       // quitB.setBorder(spacer);
+        quitB.setPreferredSize(new Dimension(70 , 25));
+        
+        quitB.setText("Quit");
+        quitB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitBActionPerformed(evt);
+            }
+        });
+        quit.add(quitB);
+        
+        quit.setSize(25 ,80);
+        this.add(quit, BorderLayout.PAGE_END);
         //frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.pack(); //sets appropriate size for frame
+        //this.pack(); //sets appropriate size for frame
         //frame.setVisible(true); //makes frame visible
+        this.setSize(500, 500);
     }
     
-
+    private void quitBActionPerformed(ActionEvent evt){
+        System.exit(0);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,6 +121,9 @@ public class GameView extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public void setController( GameController cont){
+        this.controller = cont;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
