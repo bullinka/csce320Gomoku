@@ -180,9 +180,7 @@ public class LobbyController implements Runnable {
      * @param challengee Person to be challenged
      */
     public void sendChallenge(String challengee) {
-    	if(challengee.equals(model.username)){
-    		lobby.challengeSelfError();
-    	}else{
+    
         try {
             String send = CHALLENGE + " " + challengee + " " + model.username;
             dataOut.write(send.getBytes());
@@ -191,7 +189,6 @@ public class LobbyController implements Runnable {
             Logger.getLogger(LobbyController.class.getName()).log(Level.SEVERE, null, ex);
             //need to add error handling
         }
-    	}
     }
     
     /**

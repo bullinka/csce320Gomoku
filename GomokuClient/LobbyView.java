@@ -242,9 +242,12 @@ public class LobbyView extends javax.swing.JPanel {
      * @param evt 
      */
     private void challengeBActionPerformed(ActionEvent evt) {
-    	
+    	if(userSelected.equals(controller.getUsername())){
+    		displayErrorMessage("User cannot challenge self.");
+    	}else{
         updateSentList(userSelected);
         controller.sendChallenge(userSelected);
+    	}
     	
     }
 
@@ -275,11 +278,9 @@ public class LobbyView extends javax.swing.JPanel {
      * @param userSelected 
      */
     private void updateSentList(String userSelected) {
-    	if(userSelected.equals(controller.getUsername())){
-    		displayErrorMessage("User cannot challenge self.");
-    	}else{
+
         sentModel.addElement(userSelected);
-    	}
+    	
     }
     
     /**
@@ -300,9 +301,7 @@ public class LobbyView extends javax.swing.JPanel {
         displayErrorMessage("User " + name + " rejected your game challenge.");
     }
     
-    public void challengeSelfError() {
-        displayErrorMessage("User cannot challenge self.");
-    }
+   
     /**
      * Method called when user rejects a challenge.
      * Removes the rejected username from the list.
